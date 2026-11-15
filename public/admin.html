@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin · GameVentures</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0b1510">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<main>
+  <header class="dash-head">
+    <div class="wrap">
+      <span class="kicker">Control room</span>
+      <h1>GameVentures admin</h1>
+      <p id="pay-mode"></p>
+      <div class="dash-tabs" role="tablist" id="tabs" hidden>
+        <button role="tab" data-tab="trips" aria-selected="true">Trips</button>
+        <button role="tab" data-tab="bookings" aria-selected="false">Bookings</button>
+        <button role="tab" data-tab="leads" aria-selected="false">Interested leads <span class="count" id="c-leads">0</span></button>
+      </div>
+    </div>
+  </header>
+  <div class="dash-body wrap">
+    <div id="denied" class="empty" hidden><h2>Admins only</h2><p>Log in with an admin account.</p><button class="btn" id="admin-login">Log in</button></div>
+    <dl class="stat-tiles" id="stats" hidden></dl>
+
+    <div id="panel-trips" role="tabpanel" hidden>
+      <div class="admin-grid">
+        <form class="panel form" id="trip-form">
+          <h2 id="form-title">Post a new trip</h2>
+          <input type="hidden" name="id">
+          <div class="field"><label for="f-title">Trip title</label><input id="f-title" name="title" required placeholder="Mt Longonot Sunrise Hike"></div>
+          <div class="row-2">
+            <div class="field"><label for="f-category">Type</label><select id="f-category" name="category" required>
+              <option value="hike">Hike & climb</option><option value="safari">Game park / safari</option><option value="water">River & lake</option><option value="roadtrip">Road trip</option><option value="games">Games & fun</option></select></div>
+            <div class="field"><label for="f-location">Place</label><input id="f-location" name="location" required placeholder="Mt Longonot, Naivasha"></div>
+          </div>
+          <div class="row-2">
+            <div class="field"><label for="f-date">Departure date</label><input id="f-date" name="start_date" type="date" required></div>
+            <div class="field"><label for="f-duration">Duration</label><input id="f-duration" name="duration" placeholder="1 day"></div>
+          </div>
+          <div class="row-2">
+            <div class="field"><label for="f-price">Price per person (KES)</label><input id="f-price" name="price" type="number" min="0" step="1" inputmode="numeric" required></div>
+            <div class="field"><label for="f-slots">Total slots</label><input id="f-slots" name="slots_total" type="number" min="1" step="1" inputmode="numeric" required></div>
+          </div>
+          <div class="row-2">
+            <div class="field"><label for="f-transport">Transport</label><select id="f-transport" name="transport">
+              <option value="landcruiser">Land Cruiser 4x4</option><option value="safarivan">Pop-up roof safari van</option><option value="bus">Coach bus</option><option value="shuttle">14-seater shuttle</option><option value="">Not included</option></select></div>
+            <div class="field"><label for="f-difficulty">Difficulty</label><select id="f-difficulty" name="difficulty"><option>Easy</option><option>Moderate</option><option>Challenging</option></select></div>
+          </div>
+          <div class="field"><label for="f-tnote">Transport details</label><input id="f-tnote" name="transport_note" placeholder="Pop-up roof, charging ports, max 7 per vehicle"><span class="hint">Sell the ride — it's part of the value.</span></div>
+          <div class="field"><label for="f-meet">Meeting point</label><input id="f-meet" name="meeting_point" placeholder="Archives, Nairobi CBD"></div>
+          <div class="field"><label for="f-tagline">Ad headline (one line)</label><input id="f-tagline" name="tagline" maxlength="160" placeholder="Conquer the crater rim and watch the Rift Valley wake up."></div>
+          <div class="field"><label for="f-desc">Description</label><textarea id="f-desc" name="description" rows="4"></textarea></div>
+          <div class="field"><label for="f-acts">Activities (one per line)</label><textarea id="f-acts" name="activities" rows="5" placeholder="Sunrise ascent&#10;Crater rim walk&#10;Picnic lunch"></textarea></div>
+          <div class="field"><label for="f-inc">What's included (one per line)</label><textarea id="f-inc" name="includes" rows="4" placeholder="Transport&#10;Park fees&#10;Guide"></textarea></div>
+          <div class="field"><label for="f-image">Image URL</label><input id="f-image" name="image" type="url" placeholder="https://…"></div>
+          <div class="field"><label for="f-upload">…or upload a photo</label><input id="f-upload" type="file" accept="image/png,image/jpeg,image/webp"><span class="hint">Max ~5 MB. Wide landscape photos look best.</span></div>
+          <div class="field"><label for="f-gallery">Gallery photos of the place</label>
+            <div id="gallery-current" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+            <input id="f-gallery" type="file" accept="image/png,image/jpeg,image/webp" multiple>
+            <span class="hint">Add several photos — they show on the trip page when someone opens the ad. Max ~5 MB each.</span></div>
+          <label class="check"><input type="checkbox" name="featured"> Show as the Spotlight ad on the home page</label>
+          <label class="check"><input type="checkbox" name="published" checked> Published (visible to visitors)</label>
+          <p class="form-error" aria-live="polite"></p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn" type="submit" id="save-btn">Publish trip</button><button class="btn btn-ghost" type="button" id="reset-btn" hidden>Cancel edit</button></div>
+        </form>
+        <div class="panel"><h2>All trips</h2><div class="list" id="trip-list"></div></div>
+      </div>
+    </div>
+
+    <div id="panel-bookings" role="tabpanel" hidden>
+      <div class="table-wrap"><table><thead><tr><th>Ref</th><th>Traveller</th><th>Trip</th><th>Slots</th><th>Amount</th><th>Status</th><th>Created</th></tr></thead><tbody id="booking-rows"></tbody></table></div>
+    </div>
+
+    <div id="panel-leads" role="tabpanel" hidden>
+      <div class="toolbar"><p class="small" style="margin:0;flex:1">People who saved a trip but haven't paid yet. Reach out, answer questions, and nudge them to book before slots run out.</p>
+        <button class="btn btn-dark btn-sm" id="export">Download CSV</button></div>
+      <div class="table-wrap"><table><thead><tr><th>Traveller</th><th>Contact</th><th>Trip</th><th>Saved</th><th>Booking</th><th>Follow up</th></tr></thead><tbody id="lead-rows"></tbody></table></div>
+    </div>
+  </div>
+</main>
+<script type="module" src="/js/admin.js"></script>
+</body>
+</html>

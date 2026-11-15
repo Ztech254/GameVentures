@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My trips · GameVentures</title>
+  <meta name="theme-color" content="#0b1510">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%23ff6b2c'/%3E%3Cpath d='m3 19 6-10 4 6 2-3 6 7z' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
+</head>
+<body>
+<main>
+  <header class="dash-head">
+    <div class="wrap">
+      <span class="kicker">Basecamp</span>
+      <h1 id="hello">Your adventures</h1>
+      <p id="hello-sub">Booked trips, saved trips and payments — all in one place.</p>
+      <div class="dash-tabs" role="tablist" id="tabs" hidden>
+        <button role="tab" data-tab="bookings" aria-selected="true">My bookings <span class="count" id="c-bookings">0</span></button>
+        <button role="tab" data-tab="interested" aria-selected="false">Interested <span class="count" id="c-interested">0</span></button>
+      </div>
+    </div>
+  </header>
+  <div class="dash-body wrap">
+    <div id="guest" hidden class="empty">
+      <h2>Log in to see your trips</h2>
+      <p>Create a free account to save trips you're interested in and book slots.</p>
+      <p><button class="btn" data-open="register">Create free account</button> <button class="btn btn-dark" data-open="login">Log in</button></p>
+    </div>
+    <div id="panel-bookings" class="list" role="tabpanel"></div>
+    <div id="panel-interested" class="list" role="tabpanel" hidden></div>
+    <p id="logout-wrap" hidden style="margin-top:40px"><button class="btn btn-ghost btn-sm" id="logout">Log out</button></p>
+  </div>
+</main>
+<script type="module" src="/js/account.js"></script>
+</body>
+</html>

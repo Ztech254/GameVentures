@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GameVentures · Hikes, Safaris & Adventures in Kenya</title>
+  <meta name="description" content="Book hikes, safaris, river rafting, road trips and adventure games across Kenya. Ride in Land Cruisers and coaches, pay securely with M-Pesa or card.">
+  <meta name="theme-color" content="#0b1510">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%23ff6b2c'/%3E%3Cpath d='m3 19 6-10 4 6 2-3 6 7z' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
+</head>
+<body class="has-hero">
+<main>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-media">
+      <img src="https://images.unsplash.com/photo-1523805009345-7448845a9e53?auto=format&fit=crop&w=2000&q=70" alt="" fetchpriority="high">
+    </div>
+    <div class="wrap hero-content">
+      <span class="eyebrow"><span class="dot"></span> New trips added every week</span>
+      <h1 id="hero-title">Wild Kenya is <span class="accent">calling.</span></h1>
+      <p class="lead">Summit volcanoes at sunrise, chase the Big Five in a Land Cruiser, run the Tana's rapids. Pick your adventure, grab a slot — we handle the ride, the guides and the fun.</p>
+      <form class="search-bar" role="search" action="/#trips" id="search">
+        <label class="sr-only" for="q">Where to?</label>
+        <input id="q" name="q" type="search" placeholder="Where to? Try “Longonot” or “Mara”" enterkeyhint="search" autocomplete="off">
+        <label class="sr-only" for="cat">Adventure type</label>
+        <select id="cat" name="category">
+          <option value="all">Any adventure</option>
+          <option value="hike">Hikes & Climbs</option><option value="safari">Game Parks</option>
+          <option value="water">Rivers & Lakes</option><option value="roadtrip">Road Trips</option><option value="games">Games & Fun</option>
+        </select>
+        <button class="btn" type="submit">Find trips</button>
+      </form>
+      <div class="hero-stats">
+        <div><strong>12k+</strong><span>Adventurers hosted</span></div>
+        <div><strong>4.9★</strong><span>Average trip rating</span></div>
+        <div><strong>4x4</strong><span>Land Cruiser fleet</span></div>
+      </div>
+    </div>
+    <a class="scroll-cue" href="#spotlight" aria-label="Scroll to the featured trip"></a>
+  </section>
+
+  <div class="trust" aria-label="Why travel with us">
+    <ul class="wrap">
+      <li><span aria-hidden="true">🚙</span>Transport included</li>
+      <li><span aria-hidden="true">🧭</span>Expert local guides</li>
+      <li><span aria-hidden="true">💚</span>Save now, pay later</li>
+      <li><span aria-hidden="true">🔒</span>M-Pesa & card via Paystack</li>
+    </ul>
+  </div>
+
+  <section class="spotlight-section" id="spotlight" aria-labelledby="spot-title">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div><span class="kicker">⚡ Adventure spotlight</span><h2 id="spot-title">This weekend's must-do</h2>
+          <p>Our hand-picked trip of the moment. Slots go fast — save it now, pay when you're ready.</p></div>
+        <span class="stamp">Limited slots</span>
+      </div>
+      <div id="spotlight-card"></div>
+    </div>
+  </section>
+
+  <section id="categories" aria-labelledby="cat-title">
+    <div class="wrap">
+      <div class="section-head reveal"><div><span class="kicker">Choose your vibe</span><h2 id="cat-title">What gets your heart racing?</h2></div></div>
+      <div class="cat-grid" id="cat-grid"></div>
+    </div>
+  </section>
+
+  <section id="trips" aria-labelledby="trips-title" style="padding-top:0">
+    <div class="wrap">
+      <div class="road" aria-hidden="true"></div>
+      <div class="section-head reveal">
+        <div><span class="kicker">Upcoming departures</span><h2 id="trips-title">Pick your next adventure</h2>
+          <p id="trips-sub">Every trip includes transport from Nairobi, expert guides and memories you'll brag about.</p></div>
+      </div>
+      <div class="filters" id="filters" role="group" aria-label="Filter trips"></div>
+      <div class="grid" id="grid" style="margin-top:24px" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="fleet" id="fleet" aria-labelledby="fleet-title">
+    <div class="wrap">
+      <div class="section-head reveal"><div><span class="kicker">The ride is part of the adventure</span><h2 id="fleet-title">Ride in style, ride rugged</h2>
+        <p>Every slot includes your seat. No matatu hopping, no stress — just hop in at the meeting point and enjoy the road.</p></div></div>
+      <div class="fleet-grid" id="fleet-grid"></div>
+    </div>
+  </section>
+
+  <section class="how" id="how" aria-labelledby="how-title">
+    <div class="wrap">
+      <div class="section-head reveal"><div><span class="kicker">Easy as 1-2-3-4</span><h2 id="how-title">From scrolling to summiting</h2></div></div>
+      <ol class="steps">
+        <li class="reveal"><h3>Spot a trip</h3><p>Browse hikes, safaris, river runs and games. Every card shows dates, activities, your ride and slots left.</p></li>
+        <li class="reveal"><h3>Tap “I'm interested”</h3><p>Not ready to pay? Create a free account and save it. We'll keep you in the loop with updates.</p></li>
+        <li class="reveal"><h3>Pay for your slot</h3><p>When you're ready, pay from your account with M-Pesa or card via Paystack. Your slot is locked instantly.</p></li>
+        <li class="reveal"><h3>Show up & go wild</h3><p>Meet us at the pick-up point. We bring the Land Cruiser, guides and good vibes.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section aria-labelledby="love-title">
+    <div class="wrap">
+      <div class="section-head reveal"><div><span class="kicker">Adventurers say</span><h2 id="love-title">Stories from the trail</h2></div></div>
+      <div class="quotes">
+        <blockquote class="quote reveal"><div class="stars">★★★★★</div><p>“Longonot at sunrise was unreal. The guides were patient and the Land Cruiser ride back with music on was a vibe.”</p><footer><span class="avatar">W</span>Wanjiru, Nairobi</footer></blockquote>
+        <blockquote class="quote reveal"><div class="stars">★★★★★</div><p>“Saved the Mara trip for two weeks, paid when salary came, and they still had my slot. Saw 4 of the Big Five!”</p><footer><span class="avatar">B</span>Brian, Thika</footer></blockquote>
+        <blockquote class="quote reveal"><div class="stars">★★★★★</div><p>“Rafting in Sagana was the most fun I've had all year. Everything was organised — I just showed up.”</p><footer><span class="avatar">A</span>Aisha, Mombasa</footer></blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="cta-band reveal">
+        <h2>Your next story starts here.</h2>
+        <p>Create a free account, save the trips you love and get first dibs on new adventures.</p>
+        <a class="btn btn-dark" href="#" id="cta-join">Create free account</a>
+      </div>
+    </div>
+  </section>
+</main>
+<script type="module" src="/js/home.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "gameventures",
+  "version": "1.0.0",
+  "description": "GameVentures - book hikes, safaris, river trips and adventure experiences in Kenya",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=22.13"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
