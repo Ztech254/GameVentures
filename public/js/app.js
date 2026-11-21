@@ -33,6 +33,11 @@ export const icon = {
   pin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.1-7-11a7 7 0 1 1 14 0c0 4.9-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>',
   clock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
   cal: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>',
+  route: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="19" r="2.5"/><circle cx="18" cy="5" r="2.5"/><path d="M8.5 19H16a3.5 3.5 0 0 0 0-7H8a3.5 3.5 0 0 1 0-7h7.5"/></svg>',
+  radio: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="8" width="12" height="14" rx="2"/><path d="M9 8 15 2M10 13h4M10 17h4"/></svg>',
+  shield: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 4 6v6c0 4.5 3.4 8 8 9 4.6-1 8-4.5 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg>',
+  coffee: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5zM17 10h1.5a2.5 2.5 0 0 1 0 5H17M8 2v3M12 2v3"/></svg>',
+  users: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M18 14.5a6.5 6.5 0 0 1 3.5 5.5"/></svg>',
   bolt: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>',
   heart: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8-5.2-8-11.2A4.8 4.8 0 0 1 12 6.6a4.8 4.8 0 0 1 8 3.2C20 15.8 12 21 12 21z"/></svg>'
 };
@@ -73,6 +78,30 @@ export const VEHICLES = {
   }
 };
 export const vehicle = key => VEHICLES[key] || null;
+
+// ------------------------------------------------------------ places (map + route info)
+// Matched against a trip's location text. Road distance / drive time are approximate, from Nairobi CBD.
+export const NAIROBI = { lat: -1.286, lon: 36.817 };
+export const PLACES = [
+  { key: 'longonot', name: 'Mt Longonot', match: /longonot/i, area: 'Naivasha', lat: -0.914, lon: 36.446, km: 60, hrs: '1.5' },
+  { key: 'hellsgate', name: "Hell's Gate", match: /hell'?s gate/i, area: 'Naivasha', lat: -0.912, lon: 36.31, km: 95, hrs: '2' },
+  { key: 'naivasha', name: 'Lake Naivasha', match: /naivasha/i, area: 'Naivasha', lat: -0.77, lon: 36.36, km: 90, hrs: '2' },
+  { key: 'kereita', name: 'Kereita Forest', match: /kereita/i, lat: -0.98, lon: 36.62, km: 50, hrs: '1' },
+  { key: 'sagana', name: 'Sagana', match: /sagana/i, lat: -0.67, lon: 37.21, km: 100, hrs: '2' },
+  { key: 'mara', name: 'Maasai Mara', match: /mara/i, lat: -1.49, lon: 35.14, km: 270, hrs: '5.5' },
+  { key: 'amboseli', name: 'Amboseli', match: /amboseli/i, lat: -2.65, lon: 37.26, km: 240, hrs: '4.5' },
+  { key: 'diani', name: 'Diani Beach', match: /diani/i, lat: -4.28, lon: 39.59, km: 520, hrs: '9' },
+  { key: 'mtkenya', name: 'Mt Kenya', match: /mt\.? kenya|mount kenya/i, lat: -0.15, lon: 37.31, km: 180, hrs: '3.5' },
+  { key: 'nakuru', name: 'Lake Nakuru', match: /nakuru/i, lat: -0.36, lon: 36.09, km: 160, hrs: '3' },
+  { key: 'samburu', name: 'Samburu', match: /samburu/i, lat: 0.6, lon: 37.53, km: 345, hrs: '6' },
+  { key: 'tsavo', name: 'Tsavo', match: /tsavo/i, lat: -2.98, lon: 38.47, km: 330, hrs: '5' },
+  { key: 'lamu', name: 'Lamu', match: /lamu/i, lat: -2.27, lon: 40.9, km: 690, hrs: '11' },
+  { key: 'turkana', name: 'Lake Turkana', match: /turkana/i, lat: 3.1, lon: 36.1, km: 760, hrs: '2 days' }
+];
+// First match in list order wins, so specific spots sit above broad areas ("Mt Longonot …, Naivasha" → Longonot).
+export const placeFor = t => PLACES.find(p => p.match.test(`${t.location} ${t.title}`)) || null;
+export const driveText = p => p ? (/day/.test(p.hrs) ? `${p.hrs} from Nairobi` : `${p.hrs}h from Nairobi`) : '';
+export const daysUntil = d => Math.ceil((new Date(d + 'T00:00:00') - new Date().setHours(0, 0, 0, 0)) / 86400000);
 export const ridePill = t => {
   const v = vehicle(t.transport);
   return v ? `<span class="ride" title="${esc(t.transport_note || v.name)}">${v.svg.replace('<svg', '<svg width="30" height="18"')}${esc(v.short)}</span>` : '';
@@ -101,7 +130,7 @@ export async function mountLayout() {
       <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Menu">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
       <div class="nav-links" id="nav-links">
-        <a href="/#trips">Trips</a><a href="/#spotlight">Spotlight</a><a href="/#fleet">Our rides</a><a href="/#how">How it works</a>
+        <a href="/#trips">Trips</a><a href="/#explore">Explore map</a><a href="/#convoy">Convoys</a><a href="/#fleet">Our rides</a><a href="/#how">How it works</a>
         <span id="nav-auth"></span>
       </div></nav>`;
   document.body.prepend(header);
@@ -252,17 +281,22 @@ export function cardHTML(t) {
   const d = new Date(t.start_date + 'T00:00:00');
   const pct = Math.min(100, Math.round((t.slots_booked / t.slots_total) * 100));
   const cat = CATEGORIES[t.category] || { label: t.category, ico: '🧭' };
+  const p = placeFor(t);
+  const days = daysUntil(t.start_date);
+  const soon = t.slots_left && days >= 0 && days <= 14
+    ? `<span class="leaving">${days === 0 ? 'Leaves today' : days === 1 ? 'Leaves tomorrow' : `Leaves in ${days} days`}</span>` : '';
+  const level = t.difficulty ? `<span class="level level-${esc(t.difficulty.toLowerCase())}" title="Difficulty">${esc(t.difficulty)}</span>` : '';
   return `<article class="card reveal">
     <div class="card-media">
       <img src="${esc(t.image)}" alt="" loading="lazy" decoding="async">
       <span class="badge">${cat.ico} ${esc(cat.label)}</span>
       <span class="date-tile"><strong>${d.getDate()}</strong><span>${d.toLocaleDateString('en-KE', { month: 'short' })}</span></span>
-      <span class="interested" data-interest-count="${t.id}">${interestedText(t.interested_count)}</span>
+      <span class="media-foot"><span class="interested" data-interest-count="${t.id}">${interestedText(t.interested_count)}</span>${soon}</span>
     </div>
     <div class="card-body">
       <h3><a href="/tour?id=${t.id}">${esc(t.title)}</a></h3>
-      <div class="meta"><span>${icon.pin}${esc(t.location)}</span><span>${icon.clock}${esc(t.duration || '')}</span></div>
-      ${ridePill(t)}
+      <div class="meta"><span>${icon.pin}${esc(t.location)}</span><span>${icon.clock}${esc(t.duration || '')}</span>${level}</div>
+      <div class="card-tags">${ridePill(t)}${p ? `<span class="drive" title="${esc(driveText(p))}, approx. ${p.km} km by road">${icon.route}${esc(p.hrs)}${/day/.test(p.hrs) ? '' : 'h'} drive</span>` : ''}</div>
       <div class="meter" role="img" aria-label="${pct}% booked"><i style="width:${pct}%"></i></div>
       <div class="slots-text"><span>${t.slots_booked} booked</span>${t.slots_left ? `<b class="${t.slots_left <= 8 ? 'low' : ''}">${t.slots_left} slots left</b>` : '<b class="low">Sold out</b>'}</div>
       <div class="card-foot"><span class="price">${money(t.price)}<span class="per">per person</span></span>${heartBtn(t)}${t.slots_left ? `<a class="btn" href="/tour?id=${t.id}#book">Book</a>` : ''}</div>

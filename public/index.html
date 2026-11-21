@@ -20,9 +20,9 @@
       <img src="https://images.unsplash.com/photo-1523805009345-7448845a9e53?auto=format&fit=crop&w=2000&q=70" alt="" fetchpriority="high">
     </div>
     <div class="wrap hero-content">
-      <span class="eyebrow"><span class="dot"></span> New trips added every week</span>
+      <span class="eyebrow"><span class="dot"></span> New trips &amp; convoys rolling out every week</span>
       <h1 id="hero-title">Wild Kenya is <span class="accent">calling.</span></h1>
-      <p class="lead">Summit volcanoes at sunrise, chase the Big Five in a Land Cruiser, run the Tana's rapids. Pick your adventure, grab a slot — we handle the ride, the guides and the fun.</p>
+      <p class="lead">Summit volcanoes at sunrise, roll out in a 4x4 convoy to the Mara, run the Tana's rapids, chase the coast. Pick a place, grab a slot — we handle the road, the guides and the fun.</p>
       <form class="search-bar" role="search" action="/#trips" id="search">
         <label class="sr-only" for="q">Where to?</label>
         <input id="q" name="q" type="search" placeholder="Where to? Try “Longonot” or “Mara”" enterkeyhint="search" autocomplete="off">
@@ -34,6 +34,10 @@
         </select>
         <button class="btn" type="submit">Find trips</button>
       </form>
+      <div class="hero-quick" aria-label="Popular right now">
+        <span>Popular:</span>
+        <a href="/?q=Longonot#trips">⛰️ Longonot</a><a href="/?q=Mara#trips">🦁 Maasai Mara</a><a href="/?q=Diani#trips">🏖️ Diani road trip</a><a href="/#explore">🗺️ Browse the map</a>
+      </div>
       <div class="hero-stats">
         <div><strong>12k+</strong><span>Adventurers hosted</span></div>
         <div><strong>4.9★</strong><span>Average trip rating</span></div>
@@ -79,6 +83,52 @@
       </div>
       <div class="filters" id="filters" role="group" aria-label="Filter trips"></div>
       <div class="grid" id="grid" style="margin-top:24px" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="explore" id="explore" aria-labelledby="explore-title">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div><span class="kicker">🗺️ Explore new places</span><h2 id="explore-title">Where will the road take you?</h2>
+          <p>Every trip starts in Nairobi. Pick a pin to see how far it is and what's leaving soon.</p></div>
+      </div>
+      <div class="explore-grid">
+        <div class="map-card reveal">
+          <svg class="kenya-map" id="kenya-map" viewBox="-30 0 480 510" role="img" aria-labelledby="map-title"><title id="map-title">Map of Kenya with our destinations and routes from Nairobi</title></svg>
+          <div class="map-legend" aria-hidden="true"><span><i class="lg-trip"></i>Trips open</span><span><i class="lg-soon"></i>On our radar</span><span><i class="lg-road"></i>Route from Nairobi</span></div>
+        </div>
+        <div class="dest-panel">
+          <ul class="dest-list" id="dest-list" aria-label="Destinations"></ul>
+          <p class="small dest-note">Drive times are approximate and include a comfort stop. Times vary with traffic and weather.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="convoy" id="convoy" aria-labelledby="convoy-title">
+    <div class="convoy-road" aria-hidden="true"><div class="convoy-train" id="convoy-train"></div></div>
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div><span class="kicker">🚙🚙🚙 Convoy trips</span><h2 id="convoy-title">We don't just travel. We roll out together.</h2>
+          <p>Long trips run as a convoy: guided vehicles moving as one, with a planned route, planned stops and a team watching the whole line.</p></div>
+      </div>
+      <ul class="convoy-points">
+        <li class="reveal"><span class="cp-ico" data-icon="route"></span><h3>Lead &amp; sweep vehicles</h3><p>A guide's vehicle sets the pace up front and a sweep vehicle closes the line, so nobody gets left behind.</p></li>
+        <li class="reveal"><span class="cp-ico" data-icon="radio"></span><h3>Drivers on radio</h3><p>Every driver stays connected the whole way, for road updates, wildlife sightings and quick re-routes.</p></li>
+        <li class="reveal"><span class="cp-ico" data-icon="coffee"></span><h3>Planned stops</h3><p>Viewpoints, fuel, nyama choma and stretch breaks at places we trust, timed into the route.</p></li>
+        <li class="reveal"><span class="cp-ico" data-icon="shield"></span><h3>Safety first</h3><p>Experienced drivers, well-kept vehicles and a first-aid kit in every one. You just enjoy the ride.</p></li>
+      </ul>
+      <div class="crew reveal">
+        <div class="crew-copy">
+          <span class="cp-ico" data-icon="users"></span>
+          <div><h3>Rolling with your crew?</h3>
+            <p>Book a whole Land Cruiser or a private convoy for friends, family, a club or a team-building day. We'll plan the route around you.</p></div>
+        </div>
+        <div class="crew-actions">
+          <a class="btn" id="crew-wa" href="https://wa.me/254700000000" target="_blank" rel="noopener">Plan a group trip on WhatsApp</a>
+          <a class="btn btn-ghost" href="/?category=roadtrip#trips">See road trips</a>
+        </div>
+      </div>
     </div>
   </section>
 

@@ -1,4 +1,4 @@
-import { $, $$, api, esc, money, fmtDate, icon, CATEGORIES, vehicle, heartBtn, interestedText, mountLayout, requireLogin, toast, lightDismissFallback } from './app.js';
+import { $, $$, api, esc, money, fmtDate, icon, CATEGORIES, vehicle, heartBtn, interestedText, mountLayout, requireLogin, toast, lightDismissFallback, placeFor } from './app.js';
 
 await mountLayout();
 const id = new URLSearchParams(location.search).get('id');
@@ -19,6 +19,25 @@ const past = t.start_date < new Date().toISOString().slice(0, 10);
 const pct = Math.min(100, Math.round(t.slots_booked / t.slots_total * 100));
 const photos = [...new Set([t.image, ...(t.gallery || [])].filter(Boolean))];
 const SHOWN = 5;
+const place = placeFor(t);
+const gmaps = q => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
+const routeHTML = place ? `<h2>The route</h2>
+  <div class="route-box">
+    <div class="route-line">
+      <div class="end"><strong>Nairobi</strong><small>Pick-up</small></div>
+      <div class="route-track" aria-hidden="true"><span>~${place.km} km</span></div>
+      <div class="end"><strong>${esc(place.name)}</strong><small>${esc(t.duration || 'Destination')}</small></div>
+    </div>
+    <dl class="route-stats">
+      <div><dt>Distance</dt><dd>~${place.km} km</dd></div>
+      <div><dt>Drive time</dt><dd>~${esc(place.hrs)}${/day/.test(place.hrs) ? '' : ' hrs'}</dd></div>
+      <div><dt>Travel</dt><dd>${place.km >= 200 ? 'Guided convoy' : 'Group transfer'}</dd></div>
+    </dl>
+    <p class="small" style="margin:0">${place.km >= 200
+      ? '🚙🚙 Long drives run as a guided convoy, with a lead and a sweep vehicle, drivers on radio and planned stops for food, fuel and photos.'
+      : '🚙 A short hop from the city. We leave early, beat the traffic and plan a stop on the way back.'}
+      <a href="https://www.google.com/maps/dir/?api=1&origin=Nairobi&destination=${place.lat},${place.lon}" target="_blank" rel="noopener">See the route on Google Maps ↗</a></p>
+  </div>` : '';
 const galleryHTML = photos.length ? `<h2>Photos of ${esc(t.location.split(',')[0])}</h2>
   <div class="gallery">${photos.slice(0, SHOWN).map((src, i) => `<button type="button" data-photo="${i}" aria-label="Open photo ${i + 1} of ${photos.length}">
     <img src="${esc(src)}" alt="" loading="${i ? 'lazy' : 'eager'}">${i === SHOWN - 1 && photos.length > SHOWN ? `<span class="more">+${photos.length - SHOWN} more</span>` : ''}</button>`).join('')}</div>` : '';
@@ -52,10 +71,13 @@ root.innerHTML = `
     <div class="ride-box">${v.svg}<div><h3>${esc(v.name)}</h3><p>${esc(t.transport_note || v.blurb)}</p>
       <ul>${v.perks.map(p => `<li>${esc(p)}</li>`).join('')}</ul></div></div>` : ''}
 
+    ${routeHTML}
+
     <h2>What's included</h2>
     <ul class="includes">${t.includes.map(i => `<li>${esc(i)}</li>`).join('')}</ul>
 
-    ${t.meeting_point ? `<h2>Meeting point</h2><p class="meta" style="font-size:1rem;color:var(--ink)"><span>${icon.pin}${esc(t.meeting_point)}</span></p>` : ''}
+    ${t.meeting_point ? `<h2>Meeting point</h2><p class="meta" style="font-size:1rem;color:var(--ink)"><span>${icon.pin}${esc(t.meeting_point)}</span>
+      <a href="${gmaps(t.meeting_point + ', Kenya')}" target="_blank" rel="noopener">Open in Maps ↗</a></p>` : ''}
   </div>
 
   <aside class="book-box" id="book" aria-labelledby="book-title">
